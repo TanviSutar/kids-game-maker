@@ -1,9 +1,9 @@
+import GameMakerForm from "./game-maker-form";
+
 export default function Home() {
   return (
-    <main className="flex flex-1 items-center justify-center p-6">
-      <h1 className="text-center text-4xl font-bold">
-        Kids Game Maker – coming soon
-      </h1>
+    <main className="flex-1 bg-amber-50">
+      <GameMakerForm />
     </main>
   );
 }
