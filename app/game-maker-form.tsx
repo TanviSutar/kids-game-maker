@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { CHARACTERS, SURPRISE_ID } from "@/lib/characters";
 import {
@@ -177,6 +178,19 @@ export default function GameMakerForm() {
           <h1 className="text-3xl font-extrabold">🎮 Kids Game Maker</h1>
           <p className="mt-2 text-lg">Turn any lesson into a 3-minute game</p>
         </header>
+
+        {/* Showcase game */}
+        <Link
+          href="/phonetics"
+          className="flex min-h-20 items-center gap-4 rounded-3xl border-4 border-yellow-300 bg-gradient-to-r from-yellow-100 to-amber-100 p-4 shadow-md transition active:scale-95"
+        >
+          <span className="text-5xl" aria-hidden>🐵</span>
+          <span className="flex flex-col">
+            <span className="text-lg font-extrabold text-amber-900">⭐ Showcase: Speak Marathi animal words</span>
+            <span className="text-stone-600">बोलू या! – Say the Animal</span>
+          </span>
+          <span className="ml-auto text-2xl" aria-hidden>➡️</span>
+        </Link>
 
         {/* 2. Lesson */}
         <section>

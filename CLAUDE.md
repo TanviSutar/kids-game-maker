@@ -7,6 +7,12 @@ A prototype web app. Parents type a topic they want their young child (ages 2–
 - Next.js (App Router) + TypeScript + Tailwind CSS
 - `@anthropic-ai/sdk` for Claude API calls
 - Start dev server: `npm run dev` → http://localhost:3000
+- Phone testing over HTTPS (needed for the mic): `npm run dev:https` → prints the https://<mac-ip>:3000 URL
+- Unit tests: `npm test` (Node's built-in test runner, `lib/*.test.ts`)
+
+## Routes
+- `/`: parent input screen; generates a game with Claude (`app/api/generate`, prompt in `lib/gamePrompt.ts`)
+- `/phonetics`: hand-coded showcase "Bolu Ya!" (Marathi animal words; speech in/out, no Claude API). Words in `lib/phoneticsWords.ts`, matching in `lib/phoneticsMatch.ts`. Tap the title 5 times for the recogniser debug panel.
 
 ## Standing rules
 - **Mobile-first design**: big, thumb-friendly controls.
