@@ -1,7 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { ANIMATED_HERO_EMOJI, MAGIC_WAND_EMOJI } from "@/lib/animatedEmoji";
 import { CHARACTERS, SURPRISE_ID } from "@/lib/characters";
 import { SHOW_PHONETICS } from "@/lib/features";
 import {
@@ -45,7 +47,59 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
   return <h2 className="mb-3 text-xl font-bold text-stone-800">{children}</h2>;
 }
 
-function LoadingScreen({ heroName, heroEmoji }: { heroName: string; heroEmoji: string }) {
+// Animated emoji image that shows the plain emoji until the image has loaded
+// (or if it fails), so there's never an empty gap.
+function AnimatedEmoji({
+  src,
+  fallback,
+  size,
+  className = "",
+}: {
+  src?: string;
+  fallback: string;
+  size: number;
+  className?: string;
+}) {
+  const [loaded, setLoaded] = useState(false);
+  const [failed, setFailed] = useState(false);
+  const showImage = src && !failed;
+  return (
+    <span
+      className={`relative inline-flex items-center justify-center ${className}`}
+      style={{ width: size, height: size }}
+      aria-hidden
+    >
+      {(!showImage || !loaded) && (
+        <span className="animate-bounce leading-none" style={{ fontSize: size * 0.75 }}>
+          {fallback}
+        </span>
+      )}
+      {showImage && (
+        <Image
+          src={src}
+          alt=""
+          width={size}
+          height={size}
+          unoptimized
+          priority
+          onLoad={() => setLoaded(true)}
+          onError={() => setFailed(true)}
+          className={`absolute inset-0 transition-opacity duration-300 ${loaded ? "opacity-100" : "opacity-0"}`}
+        />
+      )}
+    </span>
+  );
+}
+
+function LoadingScreen({
+  heroId,
+  heroName,
+  heroEmoji,
+}: {
+  heroId: string;
+  heroName: string;
+  heroEmoji: string;
+}) {
   const messages = [
     `${heroName} is building your game…`,
     "Counting the laddoos…",
@@ -69,11 +123,20 @@ function LoadingScreen({ heroName, heroEmoji }: { heroName: string; heroEmoji: s
       aria-live="polite"
       className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-6 bg-gradient-to-br from-amber-100 via-orange-100 to-pink-100 p-6 text-center"
     >
-      <div className="animate-bounce text-8xl" aria-hidden>
-        {heroEmoji}
+      <div className="relative">
+        <AnimatedEmoji src={ANIMATED_HERO_EMOJI[heroId]} fallback={heroEmoji} size={160} />
+        <AnimatedEmoji
+          src={MAGIC_WAND_EMOJI}
+          fallback="🪄"
+          size={72}
+          className="absolute -right-12 -top-4 rotate-12"
+        />
       </div>
       <p className="text-2xl font-bold text-stone-800">{messages[index]}</p>
       <p className="text-stone-600">This can take up to a minute ⏳</p>
+      <p className="absolute bottom-3 text-[10px] text-stone-400">
+        Animated emoji: Google Noto, CC BY 4.0
+      </p>
     </div>
   );
 }
@@ -115,6 +178,7 @@ export default function GameMakerForm() {
     <>
       {screen.kind === "loading" && hero && (
         <LoadingScreen
+          heroId={hero.id}
           heroName={hero.id === SURPRISE_ID ? "Your surprise hero" : hero.name}
           heroEmoji={hero.emoji}
         />
