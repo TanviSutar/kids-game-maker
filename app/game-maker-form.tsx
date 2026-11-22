@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { CHARACTERS, SURPRISE_ID } from "@/lib/characters";
+import { SHOW_PHONETICS } from "@/lib/features";
 import {
   AGE_GROUPS,
   LANGUAGES,
@@ -179,18 +180,20 @@ export default function GameMakerForm() {
           <p className="mt-2 text-lg">Turn any lesson into a 3-minute game</p>
         </header>
 
-        {/* Showcase game */}
-        <Link
-          href="/phonetics"
-          className="flex min-h-20 items-center gap-4 rounded-3xl border-4 border-yellow-300 bg-gradient-to-r from-yellow-100 to-amber-100 p-4 shadow-md transition active:scale-95"
-        >
-          <span className="text-5xl" aria-hidden>🐵</span>
-          <span className="flex flex-col">
-            <span className="text-lg font-extrabold text-amber-900">⭐ Showcase: Speak Marathi animal words</span>
-            <span className="text-stone-600">बोलू या! – Say the Animal</span>
-          </span>
-          <span className="ml-auto text-2xl" aria-hidden>➡️</span>
-        </Link>
+        {/* Showcase game (hidden for now, see lib/features.ts) */}
+        {SHOW_PHONETICS && (
+          <Link
+            href="/phonetics"
+            className="flex min-h-20 items-center gap-4 rounded-3xl border-4 border-yellow-300 bg-gradient-to-r from-yellow-100 to-amber-100 p-4 shadow-md transition active:scale-95"
+          >
+            <span className="text-5xl" aria-hidden>🐵</span>
+            <span className="flex flex-col">
+              <span className="text-lg font-extrabold text-amber-900">⭐ Showcase: Speak Marathi animal words</span>
+              <span className="text-stone-600">बोलू या! – Say the Animal</span>
+            </span>
+            <span className="ml-auto text-2xl" aria-hidden>➡️</span>
+          </Link>
+        )}
 
         {/* 2. Lesson */}
         <section>

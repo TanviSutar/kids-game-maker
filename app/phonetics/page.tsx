@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { SHOW_PHONETICS } from "@/lib/features";
 import { Baloo_2 } from "next/font/google";
 import BoluYaGame from "./bolu-ya-game";
 
@@ -11,5 +13,6 @@ export const metadata: Metadata = {
 };
 
 export default function PhoneticsPage() {
+  if (!SHOW_PHONETICS) notFound(); // hidden for now, see lib/features.ts
   return <BoluYaGame fontClass={baloo.className} />;
 }

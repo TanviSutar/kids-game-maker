@@ -12,7 +12,7 @@ A prototype web app. Parents type a topic they want their young child (ages 2–
 
 ## Routes
 - `/`: parent input screen; generates a game with Claude (`app/api/generate`, prompt in `lib/gamePrompt.ts`)
-- `/phonetics`: hand-coded showcase "Bolu Ya!" (Marathi animal words; speech in/out, no Claude API). Words in `lib/phoneticsWords.ts`, matching in `lib/phoneticsMatch.ts`. Tap the title 5 times for the recogniser debug panel.
+- `/phonetics`: **currently hidden** (`SHOW_PHONETICS = false` in `lib/features.ts`; route 404s, no home card). Hand-coded showcase "Bolu Ya!" (Marathi animal words; speech in/out, no Claude API). Words in `lib/phoneticsWords.ts`, matching in `lib/phoneticsMatch.ts`. Tap the title 5 times for the recogniser debug panel.
 
 ## Standing rules
 - **Mobile-first design**: big, thumb-friendly controls.
